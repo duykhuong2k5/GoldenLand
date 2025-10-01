@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Chi tiết sách</title>
+</head>
+<body>
+<main layout:fragment="content" class="container mt-4">
+
+    <!-- Hiển thị lỗi nếu có -->
+    <div th:if="${param.error != null}" class="alert alert-danger">
+        <span th:text="${param.error}">Lỗi</span>
+    </div>
+
+    <h2 class="mb-4">📖 Chi tiết sách</h2>
+
+    <!-- Kiểm tra book có tồn tại không -->
+    <div th:if="${book != null}">
+        <div class="card mb-4 shadow-sm">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <!-- Kiểm tra coverImage có tồn tại không -->
+                    <img th:if="${book.coverImage != null and book.coverImage != ''}" 
+                         th:src="@{'/images/' + ${book.coverImage}}" 
+                         class="img-fluid rounded-start" 
+                         alt="Cover"/>
+                    <img th:unless="${book.coverImage != null and book.coverImage != ''}" 
+                         src="/images/default-book.jpg" 
+                         class="img-fluid rounded-start" 
+                         alt="Default Cover"/>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${book.title} ?: 'Chưa có tiêu đề'"></h4>
+                        <p><strong>Mã ISBN:</strong> <span th:text="${book.isbn} ?: 'N/A'"></span></p>
+                        <p><strong>Tác giả:</strong> 
+                            <span th:if="${book.authorNames != null and !book.authorNames.isEmpty()}" 
+                                  th:text="${#strings.join(book.authorNames, ', ')}"></span>
+                            <span th:unless="${book.authorNames != null and !book.authorNames.isEmpty()}">Chưa có</span>
+                        </p>
+                        <p><strong>Publisher:</strong> <span th:text="${book.publisher} ?: 'N/A'"></span></p>
+                        <p><strong>Ngày xuất bản:</strong> 
+                            <span th:if="${book.publishDate != null}" 
+                                  th:text="${#temporals.format(book.publishDate, 'dd/MM/yyyy')}"></span>
+                            <span th:unless="${book.publishDate != null}">N/A</span>
+                        </p>
+                        <p><strong>Số lượng:</strong> <span th:text="${book.quantity} ?: '0'"></span></p>
+                        <p><strong>Giá:</strong> <span th:text="${book.price} ?: '0'"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review list -->
+        <h4>Đánh giá (Review)</h4>
+        <div th:if="${ratings == null or #lists.isEmpty(ratings)}">
+            <p>Chưa có đánh giá nào cho sách này.</p>
+        </div>
+        <ul class="list-group mb-4" th:if="${ratings != null and !#lists.isEmpty(ratings)}">
+            <li class="list-group-item" th:each="rating : ${ratings}">
+                <strong>Người dùng ID:</strong> <span th:text="${rating.user != null ? rating.user.id : 'N/A'}"></span> |
+                <strong>Điểm:</strong> <span th:text="${rating.rating} ?: '0'"></span><br/>
+                <strong>Review:</strong> <span th:text="${rating.reviewText} ?: 'Không có nội dung'"></span>
+            </li>
+        </ul>
+
+        <!-- Add review -->
+        <h4>Thêm đánh giá mới</h4>
+        <form th:action="@{'/books/' + ${book.bookId} + '/reviews'}" 
+              method="post" class="mb-3">
+            <input type="hidden" name="userId" value="1"/> <!-- demo user -->
+            
+            <div class="mb-2">
+                <label>Điểm (1-5):</label>
+                <input type="number" name="rating" class="form-control" min="1" max="5" required/>
+            </div>
+            
+            <div class="mb-2">
+                <label>Bình luận:</label>
+                <textarea name="reviewText" class="form-control" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-success">Gửi đánh giá</button>
+        </form>
+    </div>
+
+    <!-- Hiển thị nếu book không tồn tại -->
+    <div th:unless="${book != null}">
+        <div class="alert alert-warning">
+            <p>Sách không tồn tại hoặc đã bị xóa.</p>
+        </div>
+    </div>
+
+    <a th:href="@{/books}" class="btn btn-secondary">← Quay lại danh sách</a>
+
+</main>
+</body>
+</html>
