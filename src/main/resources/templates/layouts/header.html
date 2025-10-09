@@ -1,0 +1,16 @@
+<div th:fragment="header">
+    <header>
+        <nav>
+            <a href="/home">Trang Chủ</a>
+            <a href="/products">Sản phẩm</a>
+
+            <!-- Sử dụng safe navigation operator (?.) -->
+            <a th:if="${session.currentUser == null}" href="/login">Đăng nhập</a>
+            <a th:if="${session.currentUser == null}" href="/register">Đăng ký</a>
+
+            <a th:if="${session.currentUser?.isAdmin}" href="/users">Trang Quản trị</a>
+
+            <a th:if="${session.currentUser != null}" href="/logout">Đăng xuất</a>
+        </nav>
+    </header>
+</div>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+<h1>Realtime Chat</h1>
+<div id="messages"></div>
+<form id="chat-form">
+    <input type="text" id="message" placeholder="Type your message" required/>
+    <button type="submit">Send</button>
+</form>
+<script>
+    const socket = new SockJS('/ws');
+    const stompClient = Stomp.over(socket);
+    const transactionId = 1;
+    const senderId = 1;
+    const receiverId = 2;
+
+    stompClient.connect({}, function () {
+        stompClient.subscribe('/topic/chat', function (message) {
+            const body = JSON.parse(message.body);
+            const messages = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.textContent = body.senderId + ': ' + body.content;
+            messages.appendChild(div);
+        });
+    });
+
+    document.getElementById('chat-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const content = document.getElementById('message').value;
+        stompClient.send('/app/chat/send', {}, JSON.stringify({
+            transactionId: transactionId,
+            senderId: senderId,
+            receiverId: receiverId,
+            content: content
+        }));
+        document.getElementById('message').value = '';
+    });
+</script>
+</body>
+</html>

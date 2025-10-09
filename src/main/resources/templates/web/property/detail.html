@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Detail</title>
+</head>
+<body>
+<h1>Property Detail</h1>
+<div>
+    <p th:text="${propertyId}">Property ID</p>
+</div>
+<section>
+    <h2>Leave a review</h2>
+    <form th:action="@{'/property/' + ${propertyId} + '/review'}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="userId" value="1"/>
+        <label>Rating:</label>
+        <input type="number" name="rating" min="1" max="5" required/>
+        <label>Content:</label>
+        <textarea name="content" minlength="50" required></textarea>
+        <label>Media:</label>
+        <input type="file" name="media" multiple accept="image/*,video/*"/>
+        <button type="submit">Submit Review</button>
+    </form>
+</section>
+<section>
+    <h2>Request Rent</h2>
+    <form th:action="@{'/property/' + ${propertyId} + '/rent'}" method="post">
+        <input type="hidden" name="userId" value="1"/>
+        <label>Start Date:</label>
+        <input type="datetime-local" name="startDate" required/>
+        <label>End Date:</label>
+        <input type="datetime-local" name="endDate" required/>
+        <label>Total Amount:</label>
+        <input type="number" step="0.01" name="totalAmount" required/>
+        <button type="submit">Request Rent</button>
+    </form>
+</section>
+</body>
+</html>

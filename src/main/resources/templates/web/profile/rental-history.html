@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental History</title>
+</head>
+<body>
+<h1>Rental History</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Property</th>
+        <th>Status</th>
+        <th>Total Amount</th>
+        <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactions}">
+        <td th:text="${transaction.id}">1</td>
+        <td th:text="${transaction.propertyId}">101</td>
+        <td th:text="${transaction.status}">NEW</td>
+        <td th:text="${transaction.totalAmount}">100.00</td>
+        <td th:text="${transaction.createdAt}">2024-01-01</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
