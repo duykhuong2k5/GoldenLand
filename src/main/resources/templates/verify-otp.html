@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title layout:fragment="title">Xác thực OTP - JavaWeb</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2 class="mb-4 text-center">Xác thực OTP</h2>
+            <form th:action="@{/verify-otp}" method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" th:value="${email}" required readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="otp" class="form-label">Mã OTP</label>
+                    <input type="text" class="form-control" id="otp" name="otp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Họ tên</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName" th:value="${fullName}">
+                </div>
+                <button type="submit" class="btn btn-success w-100">Xác thực</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
