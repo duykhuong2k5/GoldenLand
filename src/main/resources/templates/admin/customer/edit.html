@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title layout:fragment="pageTitle">Thêm / Cập nhật Khách hàng | SkyLand</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        .custom-alert-backdrop {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4);
+            display: none;
+        }
+        .custom-alert {
+            position: fixed;
+            top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px 35px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            display: none;
+            text-align: center;
+        }
+        .custom-alert-button {
+            margin-top: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<main layout:fragment="content" class="container py-5">
+
+    <h2 class="fw-bold mb-4"
+        th:text="${customerCreateRequest.id != null ? 'Cập nhật khách hàng' : 'Thêm khách hàng'}"></h2>
+        
+        
+    <!-- Cảnh báo nếu là STAFF -->
+    <th:block sec:authorize="hasAuthority('STAFF')">
+        <div class="alert alert-info">
+            🧾 Bạn có thể thêm và chỉnh sửa thông tin khách hàng trong phạm vi được phân công, nhưng không thể xóa.
+        </div>
+    </th:block>
+
+    <!-- FORM -->
+    <form id="customerForm" th:object="${customerCreateRequest}" class="card card-body shadow-sm">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Tên khách hàng</label>
+                <input th:field="*{fullname}" class="form-control" placeholder="Nhập tên khách hàng" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Số điện thoại</label>
+                <input th:field="*{phone}" class="form-control" placeholder="VD: 0905123456" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Email</label>
+                <input th:field="*{email}" type="email" class="form-control" placeholder="VD: example@gmail.com" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Tên công ty</label>
+                <input th:field="*{companyname}" class="form-control" placeholder="Tên công ty (nếu có)">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Nhu cầu</label>
+                <input th:field="*{demand}" class="form-control" placeholder="VD: Mua căn hộ, thuê nhà...">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Tình trạng</label>
+                <select th:field="*{status}" class="form-select">
+                    <option value="">---Chọn tình trạng---</option>
+                    <option th:each="st : ${statuses}" th:value="${st.key}" th:text="${st.value}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between">
+            <button type="button" id="btnSaveCustomer" class="btn btn-success px-4">
+                <i class="fa-solid fa-check me-2"></i>Lưu
+            </button>
+            <!-- Nút Xóa chỉ cho MANAGER -->
+            <button type="button" id="btnDeleteCustomer" class="btn btn-danger px-4"
+                    sec:authorize="hasAuthority('MANAGER')">
+                <i class="fa-solid fa-trash me-2"></i>Xóa
+            </button>
+            <a th:href="@{/admin/customer-list}" class="btn btn-secondary px-4">
+                <i class="fa-solid fa-rotate-left me-2"></i>Quay lại
+            </a>
+        </div>
+    </form>
+
+    <!-- ALERT -->
+    <div id="customAlertBackdrop" class="custom-alert-backdrop"></div>
+    <div id="customAlert" class="custom-alert">
+        <span id="customAlertMessage"></span>
+        <button id="customAlertButton" class="custom-alert-button">OK</button>
+    </div>
+</main>
+
+<th:block layout:fragment="scripts">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    $(function () {
+        $('#btnSaveCustomer').click(function () {
+            const formData = {};
+            $('#customerForm').serializeArray().forEach(v => formData[v.name] = v.value.trim());
+
+            if (!formData.fullname || !formData.phone || !formData.email) {
+                customAlert("⚠️ Vui lòng điền đầy đủ thông tin!");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: /*[[@{/api/customer}]]*/ "/api/customer",
+                data: JSON.stringify(formData),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (res) {
+                    const msg = res.message || (formData.id ? "✅ Cập nhật thành công!" : "✅ Thêm khách hàng thành công!");
+                    customAlert(msg, function () {
+                        window.location.href = /*[[@{/admin/customer-list}]]*/ "/admin/customer-list";
+                    });
+                },
+                error: function (xhr) {
+                    console.error(xhr);
+                    customAlert("❌ Lưu thất bại! Vui lòng kiểm tra dữ liệu hoặc thử lại sau.");
+                }
+            });
+        });
+
+        function customAlert(msg, cb) {
+            $('#customAlertMessage').text(msg);
+            $('#customAlertBackdrop, #customAlert').fadeIn(200);
+            $('#customAlertButton').off('click').on('click', function () {
+                $('#customAlertBackdrop, #customAlert').fadeOut(200);
+                if (cb) cb();
+            });
+        }
+    });
+</script>
+</th:block>
+</body>
+</html>
