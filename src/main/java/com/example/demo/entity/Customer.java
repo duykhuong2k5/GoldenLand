@@ -1,0 +1,55 @@
+package com.example.demo.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "customer")
+public class Customer extends Base {
+
+    @Column(name = "fullname")
+    private String fullname;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "email")
+    private String email;
+
+    // ✅ Thêm hai trường phục vụ đăng ký & đăng nhập
+    @Column(name = "username", unique = true, nullable = false, length = 100)
+    private String username;
+
+    @Column(name = "password", nullable = false, length = 255)
+    private String password;
+
+    @Column(name = "companyname")
+    private String companyname;
+
+    @Column(name = "demand")
+    private String demand;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "is_active")
+    private Integer isActive = 1;
+
+    // Một khách hàng có thể có nhiều giao dịch
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<Transaction> transactionEntities = new ArrayList<>();
+
+    // Nhiều nhân viên có thể được phân công cho nhiều khách hàng
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "assignmentcustomer",
+            joinColumns = @JoinColumn(name = "customerid", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "staffid", nullable = false)
+    )
+    private List<User> userEntities = new ArrayList<>();
+}
