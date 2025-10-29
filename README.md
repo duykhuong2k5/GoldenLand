@@ -41,12 +41,16 @@ Có 2 nhóm người dùng chính:
 ---
 
 ## 🎯 Mục tiêu hệ thống
-- Xây dựng website full-stack Java Spring Boot có:
-  - Phân quyền & xác thực người dùng.
-  - Upload ảnh (Cloudinary).
-  - Thanh toán trực tuyến (VNPAY sandbox).
-  - Chat WebSocket.
-  - Quản lý schema bằng Flyway.
+Xây dựng website full-stack Java Spring Boot với các tính năng chính:
+- **Phân quyền & xác thực người dùng**: Sử dụng **Spring Security** và **JWT (JSON Web Token)** để bảo mật và phân quyền cho các nhóm người dùng (Admin, Manager, Staff, Customer).
+- **Upload ảnh**: Quản lý và lưu trữ hình ảnh bất động sản qua **Cloudinary**, hỗ trợ tải lên và hiển thị ảnh cho bài đăng.
+- **Thanh toán trực tuyến**: Tích hợp **VNPAY sandbox** để xử lý thanh toán cho các bài đăng VIP hoặc dịch vụ trả phí.
+- **Chat WebSocket**: Tạo chức năng **chat thời gian thực** giữa các nhân viên quản lý bất động sản thông qua **Spring WebSocket** và **STOMP**.
+- **Quản lý schema bằng Flyway**: **Flyway** để quản lý thay đổi schema và migration tự động, giúp dễ dàng nâng cấp và bảo trì cơ sở dữ liệu.
+- **Tích hợp bản đồ Google API**: Sử dụng **Google API** để hiển thị và tìm kiếm bất động sản trên bản đồ, cải thiện trải nghiệm người dùng.
+- **Bảo mật hệ thống**: Mã hóa mật khẩu người dùng bằng **BCrypt PasswordEncoder** và bảo vệ API với **Spring Security**.
+- **Dễ dàng triển khai**: Hỗ trợ triển khai ứng dụng trên **Docker** và **Cloud**, giúp dễ dàng mở rộng và quản lý hệ thống.
+- **Gửi email**: Tích hợp **Spring Mail (SMTP Gmail)** để gửi email cho các chức năng như quên mật khẩu và thông báo các sự kiện quan trọng.
 
 ---
 
@@ -67,15 +71,33 @@ Có 2 nhóm người dùng chính:
 
 ## 🧩 Kiến trúc & Công nghệ
 - **Ngôn ngữ:** Java 17+
-- **Framework:** Spring Boot (Spring MVC, Spring Security, Spring Data JPA, WebSocket)
-- **Frontend:** Thymeleaf, Bootstrap, jQuery, AJAX
-- **Database:** MySQL + Flyway Migration
-- **Upload ảnh:** Cloudinary
-- **Thanh toán:** VNPAY sandbox
-- **Email:** Spring Mail (SMTP Gmail)
-- **Build tool:** Maven
-- **Dev tools:** IntelliJ / VS Code, PlantUML, Git
-- **Logging:** SLF4J + Logback
+- **Framework:**
+  - **Spring Boot:** Spring MVC, Spring Security, Spring Data JPA, WebSocket
+  - **JWT (JSON Web Token):** Bảo mật và phân quyền người dùng
+- **Frontend:** 
+  - **Thymeleaf:** Templating engine cho Spring Boot
+  - **Bootstrap:** Responsive design framework
+  - **jQuery & AJAX:** Tương tác động với backend và nâng cao trải nghiệm người dùng
+- **Database:** 
+  - **MySQL:** Cơ sở dữ liệu quan hệ
+  - **Flyway:** Quản lý schema và migration tự động
+- **Upload ảnh:** Cloudinary (quản lý và lưu trữ hình ảnh)
+- **Thanh toán:** VNPAY sandbox (tích hợp thanh toán trực tuyến)
+- **Email:** Spring Mail (SMTP Gmail) – Gửi email cho các chức năng quên mật khẩu, thông báo
+- **Build tool:** Maven (quản lý phụ thuộc và xây dựng dự án)
+- **Dev tools:** 
+  - **IntelliJ / VS Code:** IDE phát triển
+  - **PlantUML:** Tạo sơ đồ thiết kế hệ thống, luồng công việc
+  - **Git:** Quản lý mã nguồn và version control
+- **Logging:** SLF4J + Logback (quản lý log hệ thống)
+- **Bảo mật:** 
+  - **BCrypt PasswordEncoder** cho mã hóa mật khẩu
+  - **Spring Security** để cấu hình phân quyền và bảo vệ các endpoint
+- **Truyền thông thời gian thực:** WebSocket (giao tiếp thời gian thực, hỗ trợ tính năng chat)
+- **Tích hợp Google API & bản đồ:** Cho các tính năng như tìm kiếm bất động sản trên bản đồ
+---
+
+
 
 ---
 
@@ -86,7 +108,6 @@ Có 2 nhóm người dùng chính:
 - (Tùy chọn) Cloudinary account
 - (Tùy chọn) Gmail App Password
 - (Tùy chọn) VNPAY sandbox keys
-
 ---
 
 ## ⚙️ Cấu hình
