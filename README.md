@@ -114,40 +114,82 @@ Xây dựng website full-stack Java Spring Boot với các tính năng chính:
 Tạo file `src/main/resources/application.properties`:
 
 ```properties
-# Server
-server.port=8092
+# Tên ứng dụng
+spring.application.name=CRUD13-9
 
-# Database
-spring.datasource.url=jdbc:mysql://localhost:3306/estateadvance?useSSL=false&serverTimezone=UTC
+# JDBC Driver MySQL
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/estateadvance?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
 spring.datasource.username=root
-spring.datasource.password=123456
+spring.datasource.password=Khuowng205@#
 
-# JPA
-spring.jpa.hibernate.ddl-auto=none
+# JPA / Hibernate
 spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.hibernate.ddl-auto=none
 
-# Flyway
-spring.flyway.enabled=true
-spring.flyway.locations=classpath:db/migration
+# Thymeleaf
+spring.thymeleaf.cache=false
+spring.thymeleaf.encoding=UTF-8
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.mode=HTML
 
-# Mail
+
+#Mailsender
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
-spring.mail.username=your_email@gmail.com
-spring.mail.password=your_app_password
+spring.mail.username=lamssdd910@gmail.com
+spring.mail.password=znqymqttykjkzmau
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 
-# Cloudinary
-cloudinary.cloud_name=your_cloud_name
-cloudinary.api_key=your_api_key
-cloudinary.api_secret=your_api_secret
+spring.http.encoding.charset=UTF-8
+spring.http.encoding.enabled=true
+spring.http.encoding.force=true
+# Server
+server.port=8092
+server.servlet.encoding.charset=UTF-8
+server.servlet.encoding.enabled=true
+server.servlet.encoding.force=true
 
-# VNPAY sandbox
-vnpay.tmnCode=VNPAYCODE
-vnpay.hashSecret=VNPAYSECRET
+
+# Logging
+logging.level.org.thymeleaf=DEBUG
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+# Cloudinary
+cloudinary.cloud_name=dnbxsm1mx
+cloudinary.api_key=329513356252861
+cloudinary.api_secret=PC_sIT6yaw-3fWy9jFKsMMbKTHA
+
+# ==========================
+# VNPAY SANDBOX CONFIG
+# ==========================
+vnpay.tmnCode=E782UYRX
+vnpay.hashSecret=URJVND7UIEXNLZRKIQ50XDOYFRB10G0F
 vnpay.payUrl=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
-vnpay.returnUrl=http://localhost:8092/web/payment/return
+vnpay.returnUrl=http://localhost:8092/vnpay_return
+
+# ==========================
+# ? CHAT MODULE CONFIG (M?I TH\u00CAM)
+# ==========================
+chat.staff.ids=2,3,4
+chat.staff.max-per-staff=1
+#chat.staff.start-index=0
+logging.level.org.springframework.web.socket=DEBUG
+logging.level.org.springframework.messaging=DEBUG
+logging.level.org.springframework.web.socket.messaging=TRACE
+# ==========================
+# FLYWAY DATABASE MIGRATION
+# ==========================
+spring.flyway.enabled=true
+spring.flyway.locations=classpath:db/migration
+# Nếu DB đã có sẵn dữ liệu (vd. building, customer,...)
+spring.flyway.baseline-on-migrate=true
+spring.flyway.baseline-version=0
+
 ```
 
 ---
@@ -155,8 +197,6 @@ vnpay.returnUrl=http://localhost:8092/web/payment/return
 ## 🗄️ Cơ sở dữ liệu & Migration
 - **Flyway** quản lý tại: `src/main/resources/db/migration`
 - Các file migration:
-  - `V1__init_schema.sql`
-  - `V2__seed_roles_users.sql`
   - `V3__seed_sample_data.sql`
 - **ER Diagram:** `docs/database/ERD.png`
 
