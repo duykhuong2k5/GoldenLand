@@ -191,33 +191,34 @@ spring.flyway.baseline-on-migrate=true
 spring.flyway.baseline-version=0
 ```
 ## 🗄️ Cơ sở dữ liệu & Migration
-```
-Migration: src/main/resources/db/migration
 
-File mẫu: V3__seed_sample_data.sql
+- **Migration path:** `src/main/resources/db/migration`
+- **File mẫu:** `V3__seed_sample_data.sql`
+- **ERD:** `docs/database/ERD.png`
+- **Bảng chính:** `user`, `role`, `user_role`, `customer`, `building`, `payment`
 
-ERD: docs/database/ERD.png
-
-Bảng chính: user, role, user_role, customer, building, payment
-```
+---
 
 ## ▶️ Cách chạy ứng dụng
-```
--- Tạo database
+
+### 🧱 Tạo database
+```sql
 CREATE DATABASE estateadvance CHARACTER SET utf8mb4;
-bash
-Copy code
-# Build & run
+```
+
+### ▶️ Build & Run
+```bash
 mvn clean package
 mvn spring-boot:run
+```
 
-# Truy cập
-open http://localhost:8092
-```
+Truy cập: [http://localhost:8092](http://localhost:8092)
+
+---
+
 ## 🐳 Docker Compose
-```
-yaml
-Copy code
+
+```yaml
 version: "3.8"
 services:
   mysql:
@@ -239,21 +240,28 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
 ```
+
 ---
+
 ## 👤 Tài khoản mẫu & Phân quyền
-```
-Vai trò	Email	Mật khẩu	Quyền
-🛠️ Admin	admin@example.com	123456	Toàn quyền
-👨‍💼 Manager	manager@gl.com	123456	Duyệt bài, phân công
-👩‍💻 Staff	vanu123@gmailcom	123456	Quản lý khách hàng
-👥 Customer		handuykhuong05012005@gmail.com khuong1234	Đăng bài, thanh toán
-```
+
+> ⚠️ *Chỉ sử dụng cho mục đích demo — không nên commit mật khẩu thật vào repo public.*
+
+| Vai trò | Email | Mật khẩu | Quyền hạn |
+|:--------|:----------------------------|:----------:|:--------------------------------|
+| 🛠️ **Admin** | `admin@example.com` | `123456` | Toàn quyền quản trị hệ thống |
+| 👨‍💼 **Manager** | `manager@gl.com` | `123456` | Duyệt bài đăng, phân công nhân viên |
+| 👩‍💻 **Staff** | `vanu123@gmail.com` | `123456` | Quản lý khách hàng, hỗ trợ tòa nhà |
+| 🧑‍💻 **Customer** | `handuykhuong05012005@gmail.com` | `khuong1234` | Đăng bài, thanh toán, quản lý tin cá nhân |
+
+> 💡 Bạn có thể sử dụng các tài khoản này để kiểm thử tính năng **RBAC**, **CRUD**, và **VNPay**.
+
 ---
 ## 🔗 API Docs
-```
+
 Swagger UI → http://localhost:8092/swagger-ui/index.html
 OpenAPI JSON → /v3/api-docs
-```
+
 ## 📁 Cấu trúc thư mục
 ```
 src/
@@ -308,59 +316,68 @@ docs/
 ```
 ---
 ## 💡 Troubleshooting / FAQ
-```
-| Vấn đề | Nguyên nhân | Giải pháp |
-|--------|--------------|-----------|
-| ❌ **Gmail 535-5.7.8** | Sai App Password | Tạo App Password mới trong tài khoản Google |
-| ⚠️ **MySQL Public Key Retrieval** | Cấu hình chưa bật retrieval | Thêm `allowPublicKeyRetrieval=true` vào JDBC URL |
-| 💳 **Sai checksum VNPAY** | Sai `hashSecret` hoặc lỗi encode URL | Kiểm tra lại file `application.properties` và cấu hình VNPAY |
-| ☁️ **Cloudinary 401 Unauthorized** | Sai `api_key` hoặc `api_secret` | Kiểm tra cấu hình trong `application.properties` |
-| 🧭 **Lỗi mapping hoặc migration** | Flyway chưa đồng bộ | Chạy `mvn clean` và `mvn spring-boot:run` lại để migrate |
-| 🔐 **Lỗi đăng nhập JWT** | Token hết hạn hoặc sai header | Kiểm tra header `Authorization` trong request |
-| 🐳 **Docker không khởi động** | Port hoặc DB container bị trùng | Dừng container cũ: `docker stop <container>` rồi chạy lại |
-| 🌐 **Không load CSS / JS** | Thiếu mapping static resources | Kiểm tra lại `spring.web.resources.static-locations` trong config |
 
-> 💡 *Nếu gặp lỗi khác, kiểm tra file `application.properties` hoặc console log để xác định nguyên nhân cụ thể.*
-```
+| ⚠️ **Vấn đề** | 🔍 **Nguyên nhân** | 🧰 **Giải pháp** |
+|:--------------|:-------------------:|:-------------------------------|
+| ❌ **Gmail 535-5.7.8** | Sai *App Password* | 👉 Tạo **App Password mới** trong tài khoản Google. |
+| ⚠️ **MySQL Public Key Retrieval** | Cấu hình chưa bật *retrieval* | ➕ Thêm `allowPublicKeyRetrieval=true` vào JDBC URL. |
+| 💳 **Sai checksum VNPAY** | Sai `hashSecret` hoặc lỗi encode URL | 🔍 Kiểm tra lại file **`application.properties`** và cấu hình **VNPAY**. |
+| ☁️ **Cloudinary 401 Unauthorized** | Sai `api_key` hoặc `api_secret` | 🔑 Kiểm tra lại cấu hình trong **application.properties**. |
+| 🧭 **Lỗi mapping hoặc migration** | Flyway chưa đồng bộ | 🧱 Chạy lại `mvn clean` → `mvn spring-boot:run` để migrate. |
+| 🔐 **Lỗi đăng nhập JWT** | Token hết hạn hoặc sai header | 🧾 Kiểm tra header **Authorization** trong request. |
+| 🐳 **Docker không khởi động** | Port hoặc DB container bị trùng | 🧰 Dừng container cũ: `docker stop <container>` rồi chạy lại. |
+| 🌐 **Không load CSS / JS** | Thiếu mapping static resources | 🧩 Kiểm tra `spring.web.resources.static-locations` trong cấu hình. |
+
+> 💡 *Nếu gặp lỗi khác, hãy kiểm tra file `application.properties` hoặc xem log trong console để xác định nguyên nhân cụ thể.*
+
 ---
 
 ## 🤝 Đóng góp & License
 
 ### 🧭 Quy ước commit
-Sử dụng chuẩn commit message để dễ quản lý lịch sử:
-- `feat:` thêm mới tính năng  
-- `fix:` sửa lỗi  
-- `docs:` cập nhật tài liệu  
-- `refactor:` cải thiện code mà không thay đổi logic  
+Sử dụng chuẩn **commit message** để dễ quản lý lịch sử và tự động sinh changelog:
+
+- `feat:` ➕ thêm mới tính năng  
+- `fix:` 🧩 sửa lỗi  
+- `docs:` 📘 cập nhật tài liệu  
+- `refactor:` 🔄 cải thiện code mà không thay đổi logic  
+
+---
 
 ### 🌿 Nhánh làm việc
-- `main` → Nhánh ổn định (production)  
-- `feature/*` → Nhánh chức năng riêng
+| Nhánh | Mục đích | Ghi chú |
+|:------|:-----------:|:----------------------------|
+| `main` | ✅ Ổn định (production) | Triển khai chính thức |
+| `dev` | 🧪 Phát triển chung | Tổng hợp các nhánh feature |
+| `feature/*` | ✨ Tính năng riêng | Mỗi module/tính năng tách nhánh riêng |
 
-> 🧡 *Đóng góp, báo lỗi hoặc đề xuất cải tiến luôn được hoan nghênh qua Pull Request hoặc Issue!*
+> 🧡 *Mọi đóng góp, báo lỗi hoặc đề xuất cải tiến luôn được hoan nghênh qua Pull Request hoặc Issue!*
 
 ---
+
 ## 👥 Thành viên nhóm
-```
-| Họ tên | Vai trò & Nhiệm vụ chính | Khu vực / Module phụ trách |
-|--------|----------------------------|-----------------------------|
-| 🧑‍💻 **Phan Duy Khương** | - Quản trị người dùng (**Admin**)  <br> - Bảo mật & phân quyền (**RBAC**)  <br> - Phát triển tính năng **Manager & Staff**  <br> - **CRUD Building**, lịch sử giá tòa nhà  <br> - Tích hợp **Thanh toán VNPay**  <br> - Quản lý **Migration Schema (Flyway)**  <br> - Giao diện: *Quên mật khẩu*, *So sánh tòa nhà*, *Trang sản phẩm*  <br> - Hỗ trợ bảo mật: **JWT Authentication** *(phụ thành viên 2)* | `templates/admin/building/` |
-| 👩‍💻 **Phạm Huỳnh Khánh Linh** | - Quản lý hình ảnh tòa nhà (**Cloudinary**)  <br> - Tích hợp **Google Map** (trang chi tiết bất động sản)  <br> - Xây dựng luồng **Vendor flows + My Posts**  <br> - **CRUD User (Customer)**  <br> - **Tìm kiếm nâng cao** & **Review (Đánh giá tòa nhà)**  <br> - Bảo mật: **JWT Authentication** | `templates/admin/customer/` |
-| 🧑‍💼 **Mai Hoàng Trúc Lâm** | - **Đăng ký, OTP & Đăng nhập** (qua email)  <br> - Quản lý **hồ sơ cá nhân** & **đổi mật khẩu**  <br> - Phát triển **Realtime Chatbox (WebSocket)**  <br> - Xây dựng **phân trang danh sách**  <br> - Kết nối module **My Posts** (liên kết Member 2) | `templates/admin/user/` |
-| 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI**  <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1)  <br> - Xây dựng giao diện **layouts chung**  <br> - Quản lý giao diện người dùng: **templates/web/** | `templates/layouts/`, `templates/web/` |
-```
----
-## 🖼️ Demo / Hình ảnh
-```
-> Thư mục hình ảnh: `docs/images/`
 
-| Trang chủ | Quản lý bài đăng | Thanh toán VNPay |
-|------------|------------------|------------------|
+| 👤 **Họ tên** | 💼 **Vai trò & Nhiệm vụ chính** | 📁 **Khu vực / Module phụ trách** |
+|:--------------|:--------------------------------|:---------------------------------|
+| 🧑‍💻 **Phan Duy Khương** | - Quản trị người dùng (**Admin**) <br> - Bảo mật & phân quyền (**RBAC**) <br> - Phát triển tính năng **Manager & Staff** <br> - **CRUD Building**, lịch sử giá tòa nhà <br> - Tích hợp **Thanh toán VNPay** <br> - Quản lý **Migration Schema (Flyway)** <br> - Giao diện: *Quên mật khẩu*, *So sánh tòa nhà*, *Trang sản phẩm* <br> - Hỗ trợ bảo mật: **JWT Authentication** *(phụ thành viên 2)* | `templates/admin/building/` |
+| 👩‍💻 **Phạm Huỳnh Khánh Linh** | - Quản lý hình ảnh tòa nhà (**Cloudinary**) <br> - Tích hợp **Google Map** (trang chi tiết bất động sản) <br> - Xây dựng luồng **Vendor flows + My Posts** <br> - **CRUD User (Customer)** <br> - **Tìm kiếm nâng cao** & **Review (Đánh giá tòa nhà)** <br> - Bảo mật: **JWT Authentication** | `templates/admin/customer/` |
+| 🧑‍💼 **Mai Hoàng Trúc Lâm** | - **Đăng ký, OTP & Đăng nhập** (qua email) <br> - Quản lý **hồ sơ cá nhân** & **đổi mật khẩu** <br> - Phát triển **Realtime Chatbox (WebSocket)** <br> - Xây dựng **phân trang danh sách** <br> - Kết nối module **My Posts** (liên kết Member 2) | `templates/admin/user/` |
+| 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI** <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1) <br> - Xây dựng giao diện **layouts chung** <br> - Quản lý giao diện người dùng: **templates/web/** | `templates/layouts/`, `templates/web/` |
+
+---
+
+## 🖼️ Demo / Hình ảnh
+
+> 🗂️ Thư mục hình ảnh: `docs/images/`
+
+| 🏠 **Trang chủ** | 🏢 **Quản lý bài đăng** | 💳 **Thanh toán VNPay** |
+|:----------------:|:----------------------:|:----------------------:|
 | ![Trang chủ](docs/images/home.png) | ![Quản lý bài đăng](docs/images/building.png) | ![Thanh toán VNPay](docs/images/payment.png) |
 
-| Google Map | Chatbox Realtime | Dashboard |
-|-------------|-----------------|------------|
+| 🗺️ **Google Map** | 💬 **Chatbox Realtime** | 📊 **Dashboard** |
+|:------------------:|:----------------------:|:----------------:|
 | ![Google Map](docs/images/map.png) | ![Chatbox](docs/images/chatbox.png) | ![Dashboard](docs/images/dashboard.png) |
-```
 
-💛 GoldenLand – Giải pháp quản lý bất động sản thông minh, an toàn và tiện lợi.
+---
+
+💛 **GoldenLand** – *Giải pháp quản lý bất động sản thông minh, an toàn và tiện lợi.*
