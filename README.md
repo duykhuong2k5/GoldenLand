@@ -204,7 +204,7 @@ SPRING_DATASOURCE_PASSWORD: root
 | 🛠️ **Admin** | `admin@example.com` | `123456` | Toàn quyền quản trị hệ thống |
 | 👨‍💼 **Manager** | `manager@gl.com` | `123456` | Duyệt bài đăng, phân công nhân viên |
 | 👩‍💻 **Staff** | `vanu123@gmail.com` | `123456` | Quản lý khách hàng, hỗ trợ tòa nhà |
-| 🧑‍💻 **Customer** | `handuykhuong05012005@gmail.com` | `khuong1234` | Đăng bài, thanh toán, quản lý tin cá nhân |
+| 🧑‍💻 **Customer/Vendor** | `handuykhuong05012005@gmail.com` | `khuong1234` | Đăng bài, thanh toán, quản lý tin cá nhân |
 
 > 💡 Bạn có thể sử dụng các tài khoản này để kiểm thử tính năng **RBAC**, **CRUD**, và **VNPay**.
 
