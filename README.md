@@ -24,7 +24,6 @@
 - [👤 Tài khoản mẫu & Phân quyền](#-tài-khoản-mẫu--phân-quyền)
 - [🔗 API Docs](#-api-docs)
 - [📁 Cấu trúc thư mục](#-cấu-trúc-thư-mục)
-- [🧪 Test](#-test)
 - [💡 Troubleshooting / FAQ](#-troubleshooting--faq)
 - [🤝 Đóng góp & License](#-đóng-góp--license)
 - [👥 Thành viên nhóm](#-thành-viên-nhóm)
@@ -158,7 +157,7 @@ ERD: docs/database/ERD.png
 
 Bảng chính: user, role, user_role, customer, building, payment
 
-▶️ Cách chạy ứng dụng
+## **▶️ Cách chạy ứng dụng**
 bash
 Copy code
 # Tạo database
@@ -193,7 +192,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/estateadvance
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-👤 Tài khoản mẫu & Phân quyền
+## **👤 Tài khoản mẫu & Phân quyền**
 Vai trò	Email	Mật khẩu	Quyền
 🛠️ Admin	admin@example.com	123456	Toàn quyền
 👨‍💼 Manager	manager@gl.com	123456	Duyệt bài, phân công
@@ -205,7 +204,7 @@ Swagger UI → http://localhost:8092/swagger-ui/index.html
 OpenAPI JSON → /v3/api-docs
 
 
-📁 Cấu trúc thư mục
+## **📁 Cấu trúc thư mục**
 src/
 ├─ main/
 │ ├─ java/com/example/demo/
@@ -257,7 +256,7 @@ docs/
 > Các thư mục được tổ chức rõ ràng theo chuẩn dự án Spring Boot hiện đại, hỗ trợ cả MVC và RESTful API.
 
 
-## 💡 Troubleshooting / FAQ
+## **💡 Troubleshooting / FAQ**
 
 | Vấn đề | Nguyên nhân | Giải pháp |
 |--------|--------------|-----------|
@@ -274,7 +273,7 @@ docs/
 
 ---
 
-## 🤝 Đóng góp & License
+## **🤝 Đóng góp & License**
 
 ### 🧭 Quy ước commit
 Sử dụng chuẩn commit message để dễ quản lý lịch sử:
