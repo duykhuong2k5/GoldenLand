@@ -1,15 +1,29 @@
-# 🏙️ GoldenLand
+<p align="center">
+  <img src="https://dummyimage.com/1200x250/1a1a1a/ffd700&text=🏙️+GoldenLand+-+Real+Estate+Management" alt="GoldenLand Banner" />
+</p>
 
-**Website quản lý bất động sản** – Dự án nhóm môn *Phát triển ứng dụng Web với Java Spring Boot.*
+<p align="center">
+  <a href="#">
+    <img src="https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=java&logoColor=white" alt="Java 17">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Spring%20Boot-3.0-brightgreen?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot 3.0">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Database-MySQL-orange?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License: MIT">
+  </a>
+</p>
 
-![GoldenLand Banner](https://dummyimage.com/1200x250/222/ffd700&text=GoldenLand+-+Real+Estate+Management)
-
-![Java](https://img.shields.io/badge/Java-17-blue)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green)
-![MySQL](https://img.shields.io/badge/Database-MySQL-orange)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+<p align="center">
+  <b>🏠 Ứng dụng quản lý bất động sản toàn diện – Xây dựng trên nền tảng Java Spring Boot</b><br>
+  <sub>Phát triển bởi nhóm sinh viên <b>GoldenLand</b> | Môn học: Phát triển ứng dụng Web với Java</sub>
+</p>
 
 ---
+
 
 ## 📑 Mục lục
 - [🏠 Giới thiệu](#-giới-thiệu)
@@ -19,15 +33,15 @@
 - [🧱 Yêu cầu môi trường](#-yêu-cầu-môi-trường)
 - [⚙️ Cấu hình](#️-cấu-hình)
 - [🗄️ Cơ sở dữ liệu & Migration](#️-cơ-sở-dữ-liệu--migration)
-- [▶️ Cách chạy ứng dụng](#cách-chạy-ứng-dụng)
-- [🐳 Docker Compose](#docker-compose)
-- [👤 Tài khoản mẫu & Phân quyền](#tài-khoản-mẫu--phân-quyền)
-- [🔗 API Docs](#api-docs)
-- [📁 Cấu trúc thư mục](#cấu-trúc-thư-mục)
-- [💡 Troubleshooting / FAQ](#troubleshooting--faq)
-- [🤝 Đóng góp & License](#đóng-góp--license)
-- [👥 Thành viên nhóm](#thành-viên-nhóm)
-- [🖼️ Demo / Hình ảnh](#demo--hình-ảnh)
+- [▶️ Cách chạy ứng dụng](#-cách-chạy-ứng-dụng)
+- [🐳 Docker Compose](#-docker-compose)
+- [👤 Tài khoản mẫu & Phân quyền](#-tài-khoản-mẫu--phân-quyền)
+- [🔗 API Docs](#-api-docs)
+- [📁 Cấu trúc thư mục](#-cấu-trúc-thư-mục)
+- [💡 Troubleshooting / FAQ](#-troubleshooting--faq)
+- [🤝 Đóng góp & License](#-đóng-góp--license)
+- [👥 Thành viên nhóm](#-thành-viên-nhóm)
+- [🖼️ Demo / Hình ảnh](#-demo--hình-ảnh)
 
 ---
 
