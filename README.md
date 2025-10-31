@@ -406,24 +406,20 @@ Sử dụng chuẩn **commit message** để dễ quản lý lịch sử và t�
 
 ---
 
-## 🖼️ Demo / Hình ảnh
-```
-> Thư mục hình ảnh: `docs/images/`
 
-| Trang chủ | Quản lý bài đăng | Thanh toán VNPay |
-|------------|------------------|------------------|
+## 🖼️ Demo / Hình ảnh
+
 > 🗂️ Thư mục hình ảnh: `docs/images/`
 
 | 🏠 **Trang chủ** | 🏢 **Quản lý bài đăng** | 💳 **Thanh toán VNPay** |
 |:----------------:|:----------------------:|:----------------------:|
 | ![Trang chủ](docs/images/home.png) | ![Quản lý bài đăng](docs/images/building.png) | ![Thanh toán VNPay](docs/images/payment.png) |
 
-| Google Map | Chatbox Realtime | Dashboard |
-|-------------|-----------------|------------|
 | 🗺️ **Google Map** | 💬 **Chatbox Realtime** | 📊 **Dashboard** |
 |:------------------:|:----------------------:|:----------------:|
 | ![Google Map](docs/images/map.png) | ![Chatbox](docs/images/chatbox.png) | ![Dashboard](docs/images/dashboard.png) |
-```
+
+---
 
 💛 GoldenLand – Giải pháp quản lý bất động sản thông minh, an toàn và tiện lợi.
 ---
