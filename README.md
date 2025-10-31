@@ -156,7 +156,7 @@ File mẫu: V3__seed_sample_data.sql
 ERD: docs/database/ERD.png
 
 Bảng chính: user, role, user_role, customer, building, payment
-
+---
 ## ▶️ Cách chạy ứng dụng
 bash
 Copy code
@@ -169,6 +169,7 @@ mvn spring-boot:run
 
 # Truy cập
 http://localhost:8092
+---
 ## 🐳 Docker Compose
 yaml
 Copy code
@@ -203,7 +204,7 @@ Vai trò	Email	Mật khẩu	Quyền
 Swagger UI → http://localhost:8092/swagger-ui/index.html
 OpenAPI JSON → /v3/api-docs
 
-
+---
 ## 📁 Cấu trúc thư mục
 src/
 ├─ main/
@@ -255,7 +256,7 @@ docs/
 >  
 > Các thư mục được tổ chức rõ ràng theo chuẩn dự án Spring Boot hiện đại, hỗ trợ cả MVC và RESTful API.
 
-
+---
 ## 💡 Troubleshooting / FAQ
 
 | Vấn đề | Nguyên nhân | Giải pháp |
@@ -293,7 +294,7 @@ Bạn có thể tự do sử dụng, chỉnh sửa và phân phối lại với 
 
 > 🧡 *Đóng góp, báo lỗi hoặc đề xuất cải tiến luôn được hoan nghênh qua Pull Request hoặc Issue!*
 
-
+---
 ## 👥 Thành viên nhóm
 
 | Họ tên | Vai trò & Nhiệm vụ chính | Khu vực / Module phụ trách |
@@ -303,7 +304,7 @@ Bạn có thể tự do sử dụng, chỉnh sửa và phân phối lại với 
 | 🧑‍💼 **Mai Hoàng Trúc Lâm** | - **Đăng ký, OTP & Đăng nhập** (qua email)  <br> - Quản lý **hồ sơ cá nhân** & **đổi mật khẩu**  <br> - Phát triển **Realtime Chatbox (WebSocket)**  <br> - Xây dựng **phân trang danh sách**  <br> - Kết nối module **My Posts** (liên kết Member 2) | `templates/admin/user/` |
 | 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI**  <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1)  <br> - Xây dựng giao diện **layouts chung**  <br> - Quản lý giao diện người dùng: **templates/web/** | `templates/layouts/`, `templates/web/` |
 
-
+---
 ## 🖼️ Demo / Hình ảnh
 > Thư mục hình ảnh: `docs/images/`
 
