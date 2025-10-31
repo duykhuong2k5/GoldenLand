@@ -1,5 +1,6 @@
 # 🏙️ GoldenLand
-**Website quản lý bất động sản** – Dự án nhóm môn Phát triển ứng dụng web Java Spring Boot.
+
+**Website quản lý bất động sản** – Dự án nhóm môn *Phát triển ứng dụng Web với Java Spring Boot*.
 
 ![GoldenLand Banner](https://dummyimage.com/1200x250/222/ffd700&text=GoldenLand+-+Real+Estate+Management)
 
