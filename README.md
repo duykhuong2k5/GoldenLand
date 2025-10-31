@@ -19,15 +19,15 @@
 - [🧱 Yêu cầu môi trường](#-yêu-cầu-môi-trường)
 - [⚙️ Cấu hình](#️-cấu-hình)
 - [🗄️ Cơ sở dữ liệu & Migration](#️-cơ-sở-dữ-liệu--migration)
-- [▶️ Cách chạy ứng dụng](#️-cách-chạy-ứng-dụng)
-- [🐳 Docker Compose](#-docker-compose)
-- [👤 Tài khoản mẫu & Phân quyền](#-tài-khoản-mẫu--phân-quyền)
-- [🔗 API Docs](#-api-docs)
-- [📁 Cấu trúc thư mục](#-cấu-trúc-thư-mục)
-- [💡 Troubleshooting / FAQ](#-troubleshooting--faq)
-- [🤝 Đóng góp & License](#-đóng-góp--license)
-- [👥 Thành viên nhóm](#-thành-viên-nhóm)
-- [🖼️ Demo / Hình ảnh](#-demo--hình-ảnh)
+- [▶️ Cách chạy ứng dụng](#cách-chạy-ứng-dụng)
+- [🐳 Docker Compose](#docker-compose)
+- [👤 Tài khoản mẫu & Phân quyền](#tài-khoản-mẫu--phân-quyền)
+- [🔗 API Docs](#api-docs)
+- [📁 Cấu trúc thư mục](#cấu-trúc-thư-mục)
+- [💡 Troubleshooting / FAQ](#troubleshooting--faq)
+- [🤝 Đóng góp & License](#đóng-góp--license)
+- [👥 Thành viên nhóm](#thành-viên-nhóm)
+- [🖼️ Demo / Hình ảnh](#demo--hình-ảnh)
 
 ---
 
@@ -65,7 +65,7 @@ Phát triển website **full-stack Java Spring Boot** với các chức năng n�
 - 💬 **Chat thời gian thực:** Spring WebSocket + STOMP  
 - 🗃️ **Migration schema:** Flyway  
 - 🗺️ **Google Map API:** Hiển thị vị trí bất động sản  
-- 🔒 **Bảo mật:** BCrypt PasswordEncoder  
+- 🔒 **Bảo mật:** BCrypt PasswordEncoder, JWT  
 - 🐳 **Triển khai:** Docker / Cloud  
 - 📧 **Email:** Spring Mail (SMTP Gmail)
 
@@ -148,7 +148,7 @@ cloudinary.api_secret=your_secret
 spring.flyway.enabled=true
 spring.flyway.locations=classpath:db/migration
 spring.flyway.baseline-on-migrate=true
-🗄️ Cơ sở dữ liệu & Migration
+## 🗄️ Cơ sở dữ liệu & Migration
 Migration: src/main/resources/db/migration
 
 File mẫu: V3__seed_sample_data.sql
@@ -157,7 +157,7 @@ ERD: docs/database/ERD.png
 
 Bảng chính: user, role, user_role, customer, building, payment
 
-## **▶️ Cách chạy ứng dụng**
+## ▶️ Cách chạy ứng dụng
 bash
 Copy code
 # Tạo database
@@ -169,7 +169,7 @@ mvn spring-boot:run
 
 # Truy cập
 http://localhost:8092
-🐳 Docker Compose
+## 🐳 Docker Compose
 yaml
 Copy code
 version: "3.8"
@@ -192,7 +192,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/estateadvance
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-## **👤 Tài khoản mẫu & Phân quyền**
+## 👤 Tài khoản mẫu & Phân quyền
 Vai trò	Email	Mật khẩu	Quyền
 🛠️ Admin	admin@example.com	123456	Toàn quyền
 👨‍💼 Manager	manager@gl.com	123456	Duyệt bài, phân công
@@ -204,7 +204,7 @@ Swagger UI → http://localhost:8092/swagger-ui/index.html
 OpenAPI JSON → /v3/api-docs
 
 
-## **📁 Cấu trúc thư mục**
+## 📁 Cấu trúc thư mục
 src/
 ├─ main/
 │ ├─ java/com/example/demo/
@@ -256,7 +256,7 @@ docs/
 > Các thư mục được tổ chức rõ ràng theo chuẩn dự án Spring Boot hiện đại, hỗ trợ cả MVC và RESTful API.
 
 
-## **💡 Troubleshooting / FAQ**
+## 💡 Troubleshooting / FAQ
 
 | Vấn đề | Nguyên nhân | Giải pháp |
 |--------|--------------|-----------|
@@ -273,7 +273,7 @@ docs/
 
 ---
 
-## **🤝 Đóng góp & License**
+## 🤝 Đóng góp & License
 
 ### 🧭 Quy ước commit
 Sử dụng chuẩn commit message để dễ quản lý lịch sử:
