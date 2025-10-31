@@ -200,7 +200,6 @@ ERD: docs/database/ERD.png
 
 Bảng chính: user, role, user_role, customer, building, payment
 ```
----
 
 ## ▶️ Cách chạy ứng dụng
 ```
@@ -215,7 +214,6 @@ mvn spring-boot:run
 # Truy cập
 open http://localhost:8092
 ```
----
 ## 🐳 Docker Compose
 ```
 yaml
@@ -243,18 +241,21 @@ services:
 ```
 ---
 ## 👤 Tài khoản mẫu & Phân quyền
+```
 Vai trò	Email	Mật khẩu	Quyền
 🛠️ Admin	admin@example.com	123456	Toàn quyền
 👨‍💼 Manager	manager@gl.com	123456	Duyệt bài, phân công
 👩‍💻 Staff	vanu123@gmailcom	123456	Quản lý khách hàng
 👥 Customer		handuykhuong05012005@gmail.com khuong1234	Đăng bài, thanh toán
+```
 ---
 ## 🔗 API Docs
-
+```
 Swagger UI → http://localhost:8092/swagger-ui/index.html
 OpenAPI JSON → /v3/api-docs
----
+```
 ## 📁 Cấu trúc thư mục
+```
 src/
 ├─ main/
 │ ├─ java/com/example/demo/
@@ -304,10 +305,10 @@ docs/
 > 🧭 **GoldenLand** tuân theo kiến trúc nhiều lớp (multi-layered architecture), giúp dễ mở rộng, bảo trì và tích hợp với các dịch vụ ngoài như Cloudinary, VNPAY và Google API.
 >  
 > Các thư mục được tổ chức rõ ràng theo chuẩn dự án Spring Boot hiện đại, hỗ trợ cả MVC và RESTful API.
-
+```
 ---
 ## 💡 Troubleshooting / FAQ
-
+```
 | Vấn đề | Nguyên nhân | Giải pháp |
 |--------|--------------|-----------|
 | ❌ **Gmail 535-5.7.8** | Sai App Password | Tạo App Password mới trong tài khoản Google |
@@ -320,7 +321,7 @@ docs/
 | 🌐 **Không load CSS / JS** | Thiếu mapping static resources | Kiểm tra lại `spring.web.resources.static-locations` trong config |
 
 > 💡 *Nếu gặp lỗi khác, kiểm tra file `application.properties` hoặc console log để xác định nguyên nhân cụ thể.*
-
+```
 ---
 
 ## 🤝 Đóng góp & License
@@ -334,27 +335,23 @@ Sử dụng chuẩn commit message để dễ quản lý lịch sử:
 
 ### 🌿 Nhánh làm việc
 - `main` → Nhánh ổn định (production)  
-- `dev` → Nhánh phát triển chung  
 - `feature/*` → Nhánh chức năng riêng
-
-### 🪪 Giấy phép
-Dự án được phát hành theo giấy phép [MIT License](./LICENSE).  
-Bạn có thể tự do sử dụng, chỉnh sửa và phân phối lại với điều kiện giữ nguyên ghi chú bản quyền.
 
 > 🧡 *Đóng góp, báo lỗi hoặc đề xuất cải tiến luôn được hoan nghênh qua Pull Request hoặc Issue!*
 
 ---
 ## 👥 Thành viên nhóm
-
+```
 | Họ tên | Vai trò & Nhiệm vụ chính | Khu vực / Module phụ trách |
 |--------|----------------------------|-----------------------------|
 | 🧑‍💻 **Phan Duy Khương** | - Quản trị người dùng (**Admin**)  <br> - Bảo mật & phân quyền (**RBAC**)  <br> - Phát triển tính năng **Manager & Staff**  <br> - **CRUD Building**, lịch sử giá tòa nhà  <br> - Tích hợp **Thanh toán VNPay**  <br> - Quản lý **Migration Schema (Flyway)**  <br> - Giao diện: *Quên mật khẩu*, *So sánh tòa nhà*, *Trang sản phẩm*  <br> - Hỗ trợ bảo mật: **JWT Authentication** *(phụ thành viên 2)* | `templates/admin/building/` |
 | 👩‍💻 **Phạm Huỳnh Khánh Linh** | - Quản lý hình ảnh tòa nhà (**Cloudinary**)  <br> - Tích hợp **Google Map** (trang chi tiết bất động sản)  <br> - Xây dựng luồng **Vendor flows + My Posts**  <br> - **CRUD User (Customer)**  <br> - **Tìm kiếm nâng cao** & **Review (Đánh giá tòa nhà)**  <br> - Bảo mật: **JWT Authentication** | `templates/admin/customer/` |
 | 🧑‍💼 **Mai Hoàng Trúc Lâm** | - **Đăng ký, OTP & Đăng nhập** (qua email)  <br> - Quản lý **hồ sơ cá nhân** & **đổi mật khẩu**  <br> - Phát triển **Realtime Chatbox (WebSocket)**  <br> - Xây dựng **phân trang danh sách**  <br> - Kết nối module **My Posts** (liên kết Member 2) | `templates/admin/user/` |
 | 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI**  <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1)  <br> - Xây dựng giao diện **layouts chung**  <br> - Quản lý giao diện người dùng: **templates/web/** | `templates/layouts/`, `templates/web/` |
-
+```
 ---
 ## 🖼️ Demo / Hình ảnh
+```
 > Thư mục hình ảnh: `docs/images/`
 
 | Trang chủ | Quản lý bài đăng | Thanh toán VNPay |
@@ -364,6 +361,6 @@ Bạn có thể tự do sử dụng, chỉnh sửa và phân phối lại với 
 | Google Map | Chatbox Realtime | Dashboard |
 |-------------|-----------------|------------|
 | ![Google Map](docs/images/map.png) | ![Chatbox](docs/images/chatbox.png) | ![Dashboard](docs/images/dashboard.png) |
-
+```
 
 💛 GoldenLand – Giải pháp quản lý bất động sản thông minh, an toàn và tiện lợi.
