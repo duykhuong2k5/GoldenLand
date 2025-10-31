@@ -378,9 +378,9 @@ Sử dụng chuẩn **commit message** để dễ quản lý lịch sử và t�
 | 🌱 **Nhánh** | 🎯 **Mục đích** | 🧩 **Ghi chú** | 👥 **Thành viên phụ trách** |
 |:-------------|:----------------|:---------------|:----------------------------|
 | `main` | ✅ Ổn định (production) | Tổng hợp code từ các nhánh thành viên, merge & release | 🧑‍💻 **Phan Duy Khương** *(Lead / Tổng hợp & kiểm thử toàn hệ thống)* |
-| `KhanhLinh` | 🧪 Phát triển chức năng **Staff && Vendor**,**Cloudinary**, **Google Map**, **Customer CRUD**, **Review & Search nâng cao** | Giao diện `templates/admin/customer/` | 👩‍💻 **Phạm Huỳnh Khánh Linh** |
+| `KhanhLinh` | 🧪 Phát triển chức năng **JWT Authentication**,**Staff && Vendor**,**Cloudinary**, **Google Map**, **Customer CRUD**, **Review & Search nâng cao** | Giao diện `templates/admin/customer/` | 👩‍💻 **Phạm Huỳnh Khánh Linh** |
 | `Khoi` | 🧱 Giao diện **Dashboard**, **layouts chung**, **web templates** | `templates/layouts/`, `templates/web/` | 👨‍💼 **Lục Nhật Khôi** |
-| `lam`, `lam2`, `lam3` | 💬 Chức năng **Đăng ký, OTP, Chatbox , Hồ sơ cá nhân, Phân trang** | `templates/admin/user/` | 🧑‍💼 **Mai Hoàng Trúc Lâm** |
+| `lam`, `lam2`, `lam3` | 💬 Chức năng **Đăng ký, OTP, Chatbox, Websocket , Hồ sơ cá nhân, Phân trang** | `templates/admin/user/` | 🧑‍💼 **Mai Hoàng Trúc Lâm** |
 | `Khuong_Tonghop` | ⚙️ Tích hợp và kiểm thử: **Bảo mật & phân quyền (RBAC)**,**Quản trị người dùng (Admin)**,**Building CRUD**, **Manager & Staff**, **VNPay**, **Flyway Migration**, **JWT Auth** | `templates/admin/building/` | 🧑‍💻 **Phan Duy Khương** |
 
 ---
@@ -423,5 +423,3 @@ Sử dụng chuẩn **commit message** để dễ quản lý lịch sử và t�
 
 💛 GoldenLand – Giải pháp quản lý bất động sản thông minh, an toàn và tiện lợi.
 ---
-
-💛 **GoldenLand** – *Giải pháp quản lý bất động sản thông minh, an toàn và tiện lợi.*
