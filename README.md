@@ -1,13 +1,16 @@
+<div align="center">
+
 # 🏙️ GoldenLand
+### *Real Estate Management Platform*
 
-**Website quản lý bất động sản** – Dự án nhóm môn *Phát triển ứng dụng Web với Java Spring Boot.*
+![Banner](https://dummyimage.com/1000x220/222/ffd700&text=GoldenLand+-+Property+Management)
 
-![GoldenLand Banner](https://dummyimage.com/1200x250/222/ffd700&text=GoldenLand+-+Real+Estate+Management)
+[![Java](https://img.shields.io/badge/Java-17-blue?style=flat-square&logo=java&logoColor=white)]()
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green?style=flat-square&logo=springboot&logoColor=white)]()
+[![MySQL](https://img.shields.io/badge/Database-MySQL-orange?style=flat-square&logo=mysql&logoColor=white)]()
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)]()
 
-![Java](https://img.shields.io/badge/Java-17-blue)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green)
-![MySQL](https://img.shields.io/badge/Database-MySQL-orange)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+</div>
 
 ---
 
@@ -19,15 +22,15 @@
 - [🧱 Yêu cầu môi trường](#-yêu-cầu-môi-trường)
 - [⚙️ Cấu hình](#️-cấu-hình)
 - [🗄️ Cơ sở dữ liệu & Migration](#️-cơ-sở-dữ-liệu--migration)
-- [▶️ Cách chạy ứng dụng](#cách-chạy-ứng-dụng)
-- [🐳 Docker Compose](#docker-compose)
-- [👤 Tài khoản mẫu & Phân quyền](#tài-khoản-mẫu--phân-quyền)
-- [🔗 API Docs](#api-docs)
-- [📁 Cấu trúc thư mục](#cấu-trúc-thư-mục)
-- [💡 Troubleshooting / FAQ](#troubleshooting--faq)
-- [🤝 Đóng góp & License](#đóng-góp--license)
-- [👥 Thành viên nhóm](#thành-viên-nhóm)
-- [🖼️ Demo / Hình ảnh](#demo--hình-ảnh)
+- [▶️ Cách chạy ứng dụng](#-cách-chạy-ứng-dụng)
+- [🐳 Docker Compose](#-docker-compose)
+- [👤 Tài khoản mẫu & Phân quyền](#-tài-khoản-mẫu--phân-quyền)
+- [🔗 API Docs](#-api-docs)
+- [📁 Cấu trúc thư mục](#-cấu-trúc-thư-mục)
+- [💡 Troubleshooting / FAQ](#-troubleshooting--faq)
+- [🤝 Đóng góp & License](#-đóng-góp--license)
+- [👥 Thành viên nhóm](#-thành-viên-nhóm)
+- [🖼️ Demo / Hình ảnh](#-demo--hình-ảnh)
 
 ---
 
@@ -393,21 +396,13 @@ Sử dụng chuẩn **commit message** để dễ quản lý lịch sử và t�
 ---
 
 ## 👥 Thành viên nhóm
-```
-| Họ tên | Vai trò & Nhiệm vụ chính | Khu vực / Module phụ trách |
-|--------|----------------------------|-----------------------------|
-| 🧑‍💻 **Phan Duy Khương** | - Quản trị người dùng (**Admin**)  <br> - Bảo mật & phân quyền (**RBAC**)  <br> - Phát triển tính năng **Manager & Staff**  <br> - **CRUD Building**, lịch sử giá tòa nhà  <br> - Tích hợp **Thanh toán VNPay**  <br> - Quản lý **Migration Schema (Flyway)**  <br> - Giao diện: *Quên mật khẩu*, *So sánh tòa nhà*, *Trang sản phẩm*  <br> - Hỗ trợ bảo mật: **JWT Authentication** *(phụ thành viên 2)* | `templates/admin/building/` |
-| 👩‍💻 **Phạm Huỳnh Khánh Linh** | - Quản lý hình ảnh tòa nhà (**Cloudinary**)  <br> - Tích hợp **Google Map** (trang chi tiết bất động sản)  <br> - Xây dựng luồng **Vendor flows + My Posts**  <br> - **CRUD User (Customer)**  <br> - **Tìm kiếm nâng cao** & **Review (Đánh giá tòa nhà)**  <br> - Bảo mật: **JWT Authentication** | `templates/admin/customer/` |
-| 🧑‍💼 **Mai Hoàng Trúc Lâm** | - **Đăng ký, OTP & Đăng nhập** (qua email)  <br> - Quản lý **hồ sơ cá nhân** & **đổi mật khẩu**  <br> - Phát triển **Realtime Chatbox (WebSocket)**  <br> - Xây dựng **phân trang danh sách**  <br> - Kết nối module **My Posts** (liên kết Member 2) | `templates/admin/user/` |
-| 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI**  <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1)  <br> - Xây dựng giao diện **layouts chung**  <br> - Quản lý giao diện người dùng: **templates/web/** | `templates/layouts/`, `templates/web/` |
-```
 
-| 👤 **Họ tên** | 💼 **Vai trò & Nhiệm vụ chính** | 📁 **Khu vực / Module phụ trách** |
-|:--------------|:--------------------------------|:---------------------------------|
-| 🧑‍💻 **Phan Duy Khương** | - Quản trị người dùng (**Admin**) <br> - Bảo mật & phân quyền (**RBAC**) <br> - Phát triển tính năng **Manager & Staff** <br> - **CRUD Building**, lịch sử giá tòa nhà <br> - Tích hợp **Thanh toán VNPay** <br> - Quản lý **Migration Schema (Flyway)** <br> - Giao diện: *Quên mật khẩu*, *So sánh tòa nhà*, *Trang sản phẩm* <br> - Hỗ trợ bảo mật: **JWT Authentication** *(phụ thành viên 2)* | `templates/admin/building/` |
-| 👩‍💻 **Phạm Huỳnh Khánh Linh** | - Quản lý hình ảnh tòa nhà (**Cloudinary**) <br> - Tích hợp **Google Map** (trang chi tiết bất động sản) <br> - Xây dựng luồng **Vendor flows + My Posts** <br> - **CRUD User (Customer)** <br> - **Tìm kiếm nâng cao** & **Review (Đánh giá tòa nhà)** <br> - Bảo mật: **JWT Authentication** | `templates/admin/customer/` |
-| 🧑‍💼 **Mai Hoàng Trúc Lâm** | - **Đăng ký, OTP & Đăng nhập** (qua email) <br> - Quản lý **hồ sơ cá nhân** & **đổi mật khẩu** <br> - Phát triển **Realtime Chatbox (WebSocket)** <br> - Xây dựng **phân trang danh sách** <br> - Kết nối module **My Posts** (liên kết Member 2) | `templates/admin/user/` |
-| 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI** <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1) <br> - Xây dựng giao diện **layouts chung** <br> - Quản lý giao diện người dùng: **templates/web/** | `templates/layouts/`, `templates/web/` |
+| 👤 **Họ tên** | 💼 **Vai trò & Nhiệm vụ chính** |
+|:--------------|:--------------------------------|
+| 🧑‍💻 **Phan Duy Khương** | - Quản trị người dùng (**Admin**) <br> - Bảo mật & phân quyền (**RBAC**) <br> - Phát triển tính năng **Manager & Staff** <br> - **CRUD Building**, lịch sử giá tòa nhà <br> - Tích hợp **Thanh toán VNPay** <br> - Quản lý **Migration Schema (Flyway)** <br> - Giao diện: *Quên mật khẩu*, *So sánh tòa nhà*, *Trang sản phẩm* <br> - Hỗ trợ bảo mật: **JWT Authentication** *(phụ thành viên 2)* <br> - 📂 **Khu vực:** `templates/admin/building/` |
+| 👩‍💻 **Phạm Huỳnh Khánh Linh** | - Quản lý hình ảnh tòa nhà (**Cloudinary**) <br> - Tích hợp **Google Map** (trang chi tiết bất động sản) <br> - Xây dựng luồng **Vendor flows + My Posts** <br> - **CRUD User (Customer)** <br> - **Tìm kiếm nâng cao** & **Review (Đánh giá tòa nhà)** <br> - Bảo mật: **JWT Authentication** <br> - 📂 **Khu vực:** `templates/admin/customer/` |
+| 🧑‍💼 **Mai Hoàng Trúc Lâm** | - **Đăng ký, OTP & Đăng nhập** (qua email) <br> - Quản lý **hồ sơ cá nhân** & **đổi mật khẩu** <br> - Phát triển **Realtime Chatbox (WebSocket)** <br> - Xây dựng **phân trang danh sách** <br> - Kết nối module **My Posts** (liên kết Member 2) <br> - 📂 **Khu vực:** `templates/admin/user/` |
+| 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI** <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1) <br> - Xây dựng giao diện **layouts chung** <br> - Quản lý giao diện người dùng web <br> - 📂 **Khu vực:** `templates/layouts/`, `templates/web/` |
 
 ---
 
