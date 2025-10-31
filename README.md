@@ -130,8 +130,8 @@ spring.application.name=CRUD13-9
 # JDBC Driver MySQL
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost:3306/estateadvance?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
-spring.datasource.username=root
-spring.datasource.password=Khuowng205@#
+spring.datasource.username=YOUR_DB_USER
+spring.datasource.password=YOUR_DB_PASSWORD
 
 # JPA / Hibernate
 spring.jpa.show-sql=true
@@ -146,63 +146,50 @@ spring.thymeleaf.prefix=classpath:/templates/
 spring.thymeleaf.suffix=.html
 spring.thymeleaf.mode=HTML
 
-
-#Mailsender
+# Mail Sender (dùng App Password)
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
-spring.mail.username=lamssdd910@gmail.com
-spring.mail.password=znqymqttykjkzmau
+spring.mail.username=YOUR_EMAIL@gmail.com
+spring.mail.password=YOUR_APP_PASSWORD
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 
-spring.http.encoding.charset=UTF-8
-spring.http.encoding.enabled=true
-spring.http.encoding.force=true
 # Server
 server.port=8092
 server.servlet.encoding.charset=UTF-8
 server.servlet.encoding.enabled=true
 server.servlet.encoding.force=true
 
-
 # Logging
 logging.level.org.thymeleaf=DEBUG
 logging.level.org.hibernate.SQL=DEBUG
 logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
-# Cloudinary
-cloudinary.cloud_name=dnbxsm1mx
-cloudinary.api_key=329513356252861
-cloudinary.api_secret=PC_sIT6yaw-3fWy9jFKsMMbKTHA
 
-# ==========================
+# Cloudinary
+cloudinary.cloud_name=YOUR_CLOUD
+cloudinary.api_key=YOUR_KEY
+cloudinary.api_secret=YOUR_SECRET
+
 # VNPAY SANDBOX CONFIG
-# ==========================
-vnpay.tmnCode=E782UYRX
-vnpay.hashSecret=URJVND7UIEXNLZRKIQ50XDOYFRB10G0F
+vnpay.tmnCode=YOUR_TMN_CODE
+vnpay.hashSecret=YOUR_HASH_SECRET
 vnpay.payUrl=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
 vnpay.returnUrl=http://localhost:8092/vnpay_return
 
-
+# Chat (ví dụ)
 chat.staff.ids=2,3,4
 chat.staff.max-per-staff=1
 
-#chat.staff.start-index=0
 logging.level.org.springframework.web.socket=DEBUG
 logging.level.org.springframework.messaging=DEBUG
 logging.level.org.springframework.web.socket.messaging=TRACE
-# ==========================
-# FLYWAY DATABASE MIGRATION
-# ==========================
+
+# Flyway Database Migration
 spring.flyway.enabled=true
 spring.flyway.locations=classpath:db/migration
-# Nếu DB đã có sẵn dữ liệu (vd. building, customer,...)
 spring.flyway.baseline-on-migrate=true
 spring.flyway.baseline-version=0
-
-
-
 🗄️ Cơ sở dữ liệu & Migration
-
 Migration: src/main/resources/db/migration
 
 File mẫu: V3__seed_sample_data.sql
@@ -211,19 +198,20 @@ ERD: docs/database/ERD.png
 
 Bảng chính: user, role, user_role, customer, building, payment
 
-## ▶️ Cách chạy ứng dụng
-
-# Tạo database
+▶️ Cách chạy ứng dụng
+sql
+Copy code
+-- Tạo database
 CREATE DATABASE estateadvance CHARACTER SET utf8mb4;
-
+bash
+Copy code
 # Build & run
 mvn clean package
 mvn spring-boot:run
 
 # Truy cập
-http://localhost:8092
----
-## 🐳 Docker Compose
+open http://localhost:8092
+🐳 Docker Compose
 yaml
 Copy code
 version: "3.8"
