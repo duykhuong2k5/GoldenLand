@@ -335,7 +335,16 @@ Sử dụng chuẩn **commit message** để dễ quản lý lịch sử và t�
 | 👨‍💼 **Lục Nhật Khôi** | - Thiết kế & phát triển **Dashboard UI** <br> - Phối hợp **Thanh toán VNPay** (cùng Member 1) <br> - Xây dựng giao diện **layouts chung** <br> - Quản lý giao diện người dùng web <br> - 📂 **Khu vực:** `templates/layouts/`, `templates/web/` |
 
 ---
+### 💡 Điểm cộng sáng tạo (đã thực hiện)
 
+- **Quản lý schema cơ sở dữ liệu bằng Flyway**
+- **Tích hợp thanh toán VNPAY**
+- **Bảo mật hệ thống với JWT (JSON Web Token)**
+- **Lưu trữ và quản lý hình ảnh bằng Cloudinary**
+- **Truyền thông thời gian thực với WebSocket**
+- **Tích hợp Google API (đăng nhập, dữ liệu, dịch vụ liên quan)**
+- **Xuất file **PDF báo cáo** theo tiêu chí**
+---
 
 ## 🖼️ Demo / Hình ảnh
 
