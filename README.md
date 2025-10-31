@@ -191,6 +191,7 @@ spring.flyway.baseline-on-migrate=true
 spring.flyway.baseline-version=0
 ```
 ## 🗄️ Cơ sở dữ liệu & Migration
+```
 Migration: src/main/resources/db/migration
 
 File mẫu: V3__seed_sample_data.sql
@@ -199,9 +200,10 @@ ERD: docs/database/ERD.png
 
 Bảng chính: user, role, user_role, customer, building, payment
 ```
+---
+
 ## ▶️ Cách chạy ứng dụng
-sql
-Copy code
+```
 -- Tạo database
 CREATE DATABASE estateadvance CHARACTER SET utf8mb4;
 bash
@@ -212,7 +214,10 @@ mvn spring-boot:run
 
 # Truy cập
 open http://localhost:8092
-🐳 Docker Compose
+```
+---
+## 🐳 Docker Compose
+```
 yaml
 Copy code
 version: "3.8"
@@ -235,17 +240,19 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/estateadvance
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+```
+---
 ## 👤 Tài khoản mẫu & Phân quyền
 Vai trò	Email	Mật khẩu	Quyền
 🛠️ Admin	admin@example.com	123456	Toàn quyền
 👨‍💼 Manager	manager@gl.com	123456	Duyệt bài, phân công
 👩‍💻 Staff	vanu123@gmailcom	123456	Quản lý khách hàng
 👥 Customer		handuykhuong05012005@gmail.com khuong1234	Đăng bài, thanh toán
+---
+## 🔗 API Docs
 
-🔗 API Docs
 Swagger UI → http://localhost:8092/swagger-ui/index.html
 OpenAPI JSON → /v3/api-docs
-
 ---
 ## 📁 Cấu trúc thư mục
 src/
