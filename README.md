@@ -148,15 +148,19 @@ cloudinary.api_secret=your_secret
 spring.flyway.enabled=true
 spring.flyway.locations=classpath:db/migration
 spring.flyway.baseline-on-migrate=true
+---
+
 ## 🗄️ Cơ sở dữ liệu & Migration
+
 Migration: src/main/resources/db/migration
 
 File mẫu: V3__seed_sample_data.sql
 
 ERD: docs/database/ERD.png
 
-Bảng chính: user, role, user_role, customer, building, payment
+Bảng chính: user, role, user_role, customer, building, payment.
 ---
+
 ## ▶️ Cách chạy ứng dụng
 bash
 Copy code
