@@ -30,6 +30,7 @@
 - [💡 Troubleshooting / FAQ](#-troubleshooting--faq)
 - [🤝 Đóng góp & License](#-đóng-góp--license)
 - [👥 Thành viên nhóm](#-thành-viên-nhóm)
+- [💡 Điểm cộng sáng tạo (đã thực hiện)](#-điểm-cộng-sáng-tạo-đã-thực-hiện)
 - [🖼️ Demo / Hình ảnh](#-demo--hình-ảnh)
 
 ---
