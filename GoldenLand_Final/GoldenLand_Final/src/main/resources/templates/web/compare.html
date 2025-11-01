@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title layout:fragment="pageTitle">So sánh tòa nhà | SkyLand</title>
+</head>
+<body>
+<main layout:fragment="content" class="page-wrapper">
+  <section class="intro text-center text-white"
+           style="background-image:url('https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/bg_breadcrumb.png?1664350964800');
+                  background-size:cover;background-position:center;padding:40px 0;">
+    <h1 class="fw-bold">So sánh tòa nhà</h1>
+  </section>
+
+  <section class="py-4">
+    <div class="container">
+
+      <!-- Form tham số TCO -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <div class="row g-3 align-items-end">
+            <div class="col-md-2">
+              <label class="form-label">Diện tích (m²)</label>
+              <input id="inpArea" type="number" class="form-control" value="100">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Số ô tô</label>
+              <input id="inpCar" type="number" class="form-control" value="1">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Số xe máy</label>
+              <input id="inpMoto" type="number" class="form-control" value="5">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Giờ OT/tháng</label>
+              <input id="inpOT" type="number" class="form-control" value="10">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Giờ điện OT (đ/kWh)</label>
+              <input id="inpElec" type="number" class="form-control" value="3500">
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-success w-100" onclick="recalcTCO()">Tính TCO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bảng so sánh -->
+      <div class="table-responsive">
+        <table class="table align-middle table-bordered">
+          <thead class="table-light">
+          <tr>
+            <th>Tiêu chí</th>
+            <th id="col-0">Tòa #1</th>
+            <th id="col-1">Tòa #2</th>
+            <th id="col-2">Tòa #3</th>
+            <th id="col-3">Tòa #4</th>
+          </tr>
+          </thead>
+          <tbody id="tbodyCompare"></tbody>
+          <tfoot class="table-light">
+          <tr>
+            <th>Tổng TCO ước tính (đ/tháng)</th>
+            <th id="sum-0">—</th>
+            <th id="sum-1">—</th>
+            <th id="sum-2">—</th>
+            <th id="sum-3">—</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="text-end">
+        <a href="/san-pham" class="btn btn-outline-secondary">← Quay lại danh sách</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ✅ Scripts sẽ được layout “nhét” vào cuối body -->
+<th:block layout:fragment="scripts">
+<script>
+const CMP_KEY = 'compare_ids';
+const fmt = n => (n==null || isNaN(n)) ? '—' : n.toLocaleString('vi-VN');
+let buildings = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const url = new URL(window.location.href);
+    let ids = url.searchParams.getAll('ids');        // ?ids=1&ids=2
+    if (ids.length === 0) {
+      // từ localStorage (đã lưu ở trang list)
+      ids = JSON.parse(localStorage.getItem(CMP_KEY) || '[]');
+    }
+
+    if (ids.length === 0) {
+      alert('Chưa chọn tòa nào để so sánh.');
+      window.location.href = '/san-pham';
+      return;
+    }
+
+    // gọi API kiểu ids=1&ids=2&ids=3…
+    const qs = ids.map(id => `ids=${encodeURIComponent(id)}`).join('&');
+    const res = await fetch(`/api/buildings?${qs}`);
+    if (!res.ok) {
+      console.error('GET /api/buildings failed:', res.status);
+      alert('Không tải được dữ liệu so sánh.');
+      return;
+    }
+    buildings = await res.json();
+    console.log('buildings:', buildings);
+
+    renderTable();
+    recalcTCO();
+  } catch (e) {
+    console.error(e);
+    alert('Lỗi JS trên trang so sánh.');
+  }
+});
+
+function renderTable(){
+  const body = document.getElementById('tbodyCompare');
+  body.innerHTML = '';
+
+  const fields = [
+    { label:'Tên tòa',   key:'name' },
+    { label:'Địa chỉ',  key:'address' },
+    { label:'Diện tích sàn (m²)', key:'floorArea' },
+    { label:'Giá thuê (triệu/tháng)', key:'rentPrice' },
+    { label:'Phí dịch vụ', key:'serviceFee' },
+    { label:'Phí ô tô', key:'carFee' },
+    { label:'Phí xe máy', key:'motoFee' },
+    { label:'OT fee', key:'overtimeFee' },
+    { label:'Điện (ghi chú)', key:'electricityFee' },
+    { label:'Cọc', key:'deposit' },
+    { label:'Thanh toán', key:'payment' },
+  ];
+
+  buildings.forEach((b, i) => {
+    const th = document.getElementById(`col-${i}`);
+    if (th) th.textContent = b?.name || `Tòa #${i+1}`;
+  });
+
+  fields.forEach(row => {
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.textContent = row.label;
+    tr.appendChild(th);
+
+    for (let i = 0; i < 4; i++){
+      const td = document.createElement('td');
+      const b = buildings[i];
+      td.textContent = b ? (b[row.key] ?? '—') : '—';
+      td.setAttribute('data-key', row.key);
+      tr.appendChild(td);
+    }
+    body.appendChild(tr);
+  });
+}
+
+function toNumber(x){
+  if (x == null) return 0;
+  const s = (''+x).toLowerCase()
+    .replace(/[^\d.,]/g,'')
+    .replace(/\./g,'')
+    .replace(',', '.');
+  const n = parseFloat(s);
+  return isNaN(n) ? 0 : n;
+}
+
+function recalcTCO(){
+  const area = parseFloat(document.getElementById('inpArea').value) || 0;
+  const car  = parseInt(document.getElementById('inpCar').value) || 0;
+  const moto = parseInt(document.getElementById('inpMoto').value) || 0;
+  const ot   = parseFloat(document.getElementById('inpOT').value) || 0;
+  const elec = parseFloat(document.getElementById('inpElec').value) || 0;
+
+  for (let i = 0; i < 4; i++){
+    const b = buildings[i];
+    let sum = 0;
+
+    if (b){
+      sum += (toNumber(b.rentPrice) * 1_000_000); // triệu -> VND
+
+      const sv = (b.serviceFee || '').toString().toLowerCase();
+      if (sv.includes('/m2') || sv.includes('/m²')){
+        sum += toNumber(sv) * area;
+      } else {
+        sum += toNumber(sv);
+      }
+
+      sum += toNumber(b.carFee)  * car;
+      sum += toNumber(b.motoFee) * moto;
+
+      const otFee = (b.overtimeFee || '').toString().toLowerCase();
+      if (otFee.includes('/giờ') || otFee.includes('/gio')){
+        sum += toNumber(otFee) * ot;
+      } else {
+        sum += toNumber(otFee) * 1_000_000; // fallback nếu ghi triệu
+      }
+
+      sum += elec * 2 * ot; // ước tính điện OT
+    }
+
+    const cell = document.getElementById(`sum-${i}`);
+    if (cell) cell.textContent = sum ? fmt(Math.round(sum)) : '—';
+  }
+}
+</script>
+</th:block>
+</body>
+</html>
