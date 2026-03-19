@@ -6,6 +6,9 @@ import com.example.demo.model.response.ResponseDTO;
 import com.example.demo.security.utils.SecurityUtils;
 import com.example.demo.service.BuildingService;
 import com.example.demo.service.impl.CloudinaryService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -104,9 +107,11 @@ public class BuildingAPI {
     // 5️⃣ Cập nhật phân công nhân viên
     @PreAuthorize("hasAnyAuthority('MANAGER','ADMIN')")
     @PostMapping("/assignment")
-    public ResponseDTO updateAssignmentBuilding(@RequestBody AssignmentDTO assignmentBuildingDTO) {
+    public ResponseDTO updateAssignmentBuilding(
+            @RequestBody AssignmentDTO assignmentBuildingDTO) {
         return buildingService.updateAssignmentTable(assignmentBuildingDTO);
     }
+
 
     
 

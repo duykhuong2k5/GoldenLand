@@ -206,18 +206,38 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public ResponseDTO updateAssignmentTable(AssignmentDTO assignmentBuildingDTO) {
-        List<Long> staffIds = assignmentBuildingDTO.getStaffs();
-        Building buildingEntity = buildingRepository.findById(assignmentBuildingDTO.getId()).get();
-        List<User> userEntities = new ArrayList<>();
-        for(Long id : staffIds){
-            userEntities.add(userRepository.findById(id).get());
+    public ResponseDTO updateAssignmentTable(AssignmentDTO dto) {
+
+        // 1️⃣ Check building tồn tại
+        Building building = buildingRepository.findById(dto.getId())
+            .orElseThrow(() -> new RuntimeException("Building không tồn tại"));
+
+        // 2️⃣ Check danh sách staff
+        if (dto.getStaffs() == null || dto.getStaffs().isEmpty()) {
+            throw new RuntimeException("Danh sách staff rỗng");
         }
-        buildingEntity.setUserEntities(userEntities);
-        ResponseDTO responseDTO = new ResponseDTO();
-        responseDTO.setMessage("success");
-        return responseDTO;
+
+        // 3️⃣ Check staff hợp lệ
+        List<User> staffs = new ArrayList<>();
+        for (Long staffId : dto.getStaffs()) {
+            User user = userRepository.findById(staffId)
+                .orElseThrow(() -> new RuntimeException("Staff ID " + staffId + " không tồn tại"));
+
+            if (!user.getRoles().contains("STAFF")) {
+                throw new RuntimeException("User " + staffId + " không phải STAFF");
+            }
+
+            staffs.add(user);
+        }
+
+        // 4️⃣ Gán
+        building.setUserEntities(staffs);
+
+        ResponseDTO response = new ResponseDTO();
+        response.setMessage("Assign staff thành công");
+        return response;
     }
+
     
     @Override
     public void increaseViewCount(Long id) {
