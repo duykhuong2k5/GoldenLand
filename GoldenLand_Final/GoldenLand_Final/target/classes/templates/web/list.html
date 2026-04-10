@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:fragment="pageTitle">Danh sách tòa nhà | GodendLand</title>
+</head>
+
+<body>
+<main layout:fragment="content" class="page-wrapper">
+
+    <!-- 🏙️ INTRO -->
+    <section class="intro text-center text-white"
+             style="background-image: url('https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/bg_breadcrumb.png?1664350964800');
+                    background-size: cover; background-position: center; padding: 60px 0;">
+        <h1 class="fw-bold display-5">Danh sách tòa nhà</h1>
+        <ul class="list-inline mt-3 mb-0">
+            <li class="list-inline-item">
+                <a th:href="@{/trang-chu}" class="text-white text-decoration-none">Trang chủ</a>
+                <span class="mx-1">/</span>
+            </li>
+            <li class="list-inline-item"><span class="text-light">Tất cả tòa nhà</span></li>
+        </ul>
+    </section>
+
+    <!-- 🔍 FORM TÌM KIẾM -->
+    <section class="search py-5 bg-light border-bottom">
+        <div class="container">
+            <form th:action="@{/san-pham}" method="get" th:object="${search}" class="row g-3">
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Tên tòa nhà</label>
+                    <input type="text" th:field="*{name}" class="form-control" placeholder="Ví dụ: Sky Tower">
+                </div>
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Đường</label>
+                    <input type="text" th:field="*{street}" class="form-control" placeholder="Đường...">
+                </div>
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Phường</label>
+                    <input type="text" th:field="*{ward}" class="form-control" placeholder="Phường...">
+                </div>
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Quận</label>
+                    <select th:field="*{district}" class="form-select">
+                        <option value="">-- Chọn quận --</option>
+                        <option th:each="d : ${districts}" th:value="${d.key}" th:text="${d.value}"></option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Hướng</label>
+                    <input type="text" th:field="*{direction}" class="form-control" placeholder="Ví dụ: Đông Nam">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Số tầng hầm</label>
+                    <input type="number" th:field="*{numberOfBasement}" class="form-control" min="0">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Diện tích sàn (m²)</label>
+                    <input type="number" th:field="*{floorArea}" class="form-control" placeholder="Ví dụ: 200">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="fw-bold mb-1">Giá thuê (từ - đến)</label>
+                    <div class="input-group">
+                        <input type="number" th:field="*{rentPriceFrom}" class="form-control" placeholder="Từ">
+                        <input type="number" th:field="*{rentPriceTo}" class="form-control" placeholder="Đến">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="fw-bold mb-1">Loại tòa nhà</label>
+                    <div class="d-flex flex-wrap gap-3">
+                        <div class="form-check form-check-inline" th:each="type : ${typeCodes}">
+						    <input class="form-check-input" type="checkbox"
+							       name="typeCode"
+							       th:value="${type.key}" 
+							       th:checked="${selectedType != null and selectedType == type.key}"
+							       id="type__${type.key}">
+						    <label class="form-check-label" th:for="'type__' + ${type.key}" th:text="${type.value}"></label>
+						</div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-end mt-3">
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fa-solid fa-magnifying-glass me-2"></i>Tìm kiếm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- 📋 DANH SÁCH TÒA NHÀ -->
+    <section class="product py-5">
+        <div class="container">
+            <div class="row g-4" th:if="${!#lists.isEmpty(projects)}">
+                <div class="col-md-4" th:each="b : ${projects}">
+                    <div class="card border-0 shadow-sm h-100">
+                    	<!-- 🖼️ HIỂN THỊ ẢNH -->
+						<div class="card-img-wrap">
+						  <img th:if="${b.imageUrl != null}"
+						       th:src="${b.imageUrl}"
+						       alt="Ảnh tòa nhà"
+						       class="card-img-fit">
+						</div>						
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold" th:text="${b.name}">Sky Tower</h5>
+                            <p class="text-muted mb-2">
+							    <i class="fa-solid fa-location-dot text-success me-1"></i>
+							    <a th:href="@{https://www.google.com/maps/search/?api=1&query={q}(q=${b.address})}"
+							       class="text-decoration-none"
+							       target="_blank" rel="noopener"
+							       th:text="${b.address}">123 Nguyễn Huệ</a>
+							</p>
+
+							<!-- Nút mở Google Maps -->
+							<a th:href="@{https://www.google.com/maps/search/?api=1&query={q}(q=${b.address})}"
+							   class="btn btn-outline-success btn-sm mb-3"
+							   target="_blank" rel="noopener">
+							   <i class="fa-solid fa-map-location-dot me-1"></i> Xem trên Google Maps
+							</a>
+
+                            <ul class="list-unstyled small mb-3">
+                                <li>📐 Diện tích sàn: <span th:text="${b.floorArea} + ' m²'">200 m²</span></li>
+                                <li>📞 Quản lý: <span th:text="${b.managerName}">Nguyễn Văn A</span> (<span th:text="${b.managerPhone}">0909123456</span>)</li>
+                                <li>💰 Giá thuê: <span th:text="${b.rentPrice}">25</span> triệu</li>                           
+                            </ul>
+                            <div class="d-grid gap-2 mt-3">
+							    <a th:href="@{'/chi-tiet-toa-nha/' + ${b.id}}"
+							       class="btn btn-outline-success fw-bold">
+							        👁️ Xem chi tiết
+							    </a>
+							    <button type="button"
+							            class="btn btn-success fw-bold"
+							            th:attr="data-id=${b.id}, data-name=${b.name}, data-price=${b.rentPrice}"
+							            onclick="payDeposit(this)">
+							        💰 Đặt cọc ngay
+							    </button>
+							    <button type="button"
+							          class="btn btn-outline-secondary"
+							          th:attr="data-id=${b.id}, data-name=${b.name}"
+							          onclick="addToCompare(this)">
+							    🔁 Thêm so sánh
+							  </button>
+							</div>                 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🕳️ Không có dữ liệu -->
+            <div th:if="${#lists.isEmpty(projects)}" class="text-center mt-5 text-muted">
+                <i class="fa-solid fa-box-open fa-2x mb-3"></i>
+                <p>Hiện chưa có tòa nhà nào được đăng.</p>
+            </div>
+            <!-- 📄 PHÂN TRANG -->
+		    <nav th:if="${buildingPage != null and buildingPage.totalPages > 1}" aria-label="Pagination" class="mt-4">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item" th:classappend="${buildingPage.first} ? 'disabled'">
+			      <a class="page-link"
+			         th:href="@{/san-pham(
+			             page=${buildingPage.number - 1},
+			             size=${buildingPage.size},
+			             name=${search.name},
+			             street=${search.street},
+			             ward=${search.ward},
+			             district=${search.district},
+			             direction=${search.direction},
+			             numberOfBasement=${search.numberOfBasement},
+			             floorArea=${search.floorArea},
+			             rentPriceFrom=${search.rentPriceFrom},
+			             rentPriceTo=${search.rentPriceTo},
+			             typeCode=${search.typeCode}
+			         )}">&laquo;</a>
+			    </li>
+			
+			    <li class="page-item"
+			        th:each="p : ${#numbers.sequence(0, buildingPage.totalPages - 1)}"
+			        th:classappend="${p == buildingPage.number} ? 'active'">
+			      <a class="page-link"
+			         th:text="${p + 1}"
+			         th:href="@{/san-pham(
+			             page=${p},
+			             size=${buildingPage.size},
+			             name=${search.name},
+			             street=${search.street},
+			             ward=${search.ward},
+			             district=${search.district},
+			             direction=${search.direction},
+			             numberOfBasement=${search.numberOfBasement},
+			             floorArea=${search.floorArea},
+			             rentPriceFrom=${search.rentPriceFrom},
+			             rentPriceTo=${search.rentPriceTo},
+			             typeCode=${search.typeCode}
+			         )}">1</a>
+			    </li>
+			
+			    <li class="page-item" th:classappend="${buildingPage.last} ? 'disabled'">
+			      <a class="page-link"
+			         th:href="@{/san-pham(
+			             page=${buildingPage.number + 1},
+			             size=${buildingPage.size},
+			             name=${search.name},
+			             street=${search.street},
+			             ward=${search.ward},
+			             district=${search.district},
+			             direction=${search.direction},
+			             numberOfBasement=${search.numberOfBasement},
+			             floorArea=${search.floorArea},
+			             rentPriceFrom=${search.rentPriceFrom},
+			             rentPriceTo=${search.rentPriceTo},
+			             typeCode=${search.typeCode}
+			         )}">&raquo;</a>
+			    </li>
+			  </ul>
+			</nav>
+
+        </div>
+    </section>
+    
+
+</main>
+<!-- ✅ SCRIPT THANH TOÁN VNPAY -->
+<!-- ✅ Đặt script vào fragment này -->
+<th:block layout:fragment="scripts">
+<script th:inline="javascript">
+async function payDeposit(btn) {
+  const buildingId   = btn.getAttribute("data-id");
+  const buildingName = btn.getAttribute("data-name");
+  const rentPrice    = parseFloat(btn.getAttribute("data-price")) || 0;
+
+  // ✅ Lấy customerId từ backend (đã add ở controller)
+  const customerId = /*[[${currentCustomerId}]]*/ null;
+
+  if (!customerId) {
+    alert("⚠️ Vui lòng đăng nhập để đặt cọc!");
+    return;
+  }
+
+  // 💰 Tiền cọc = 10% giá thuê (triệu → VND)
+  const depositAmount = Math.floor(rentPrice * 0.1 * 1_000_000);
+
+  const payload = {
+    amount: depositAmount,
+    buildingId: Number(buildingId),
+    customerId: Number(customerId),
+    code: "DATCOC", // backend lọc đúng giao dịch
+    note: `Đặt cọc tòa nhà ${buildingName}`
+  };
+
+  console.log("🔹 Gửi payload:", payload);
+
+  try {
+    // ✅ Gọi đúng endpoint backend (đã có trong TransactionAPI)
+    const res = await fetch('/api/transaction/vnpay', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      alert("❌ Lỗi máy chủ (HTTP " + res.status + ")");
+      return;
+    }
+
+    const result = await res.json();
+    console.log("🔹 Phản hồi từ server:", result);
+
+    if (result.message === 'success' && result.data) {
+      alert("✅ Tạo đơn thanh toán thành công, chuyển sang VNPay...");
+      window.location.href = result.data; // Redirect sang VNPay
+    } else {
+      alert("❌ Không tạo được link VNPay: " + result.message);
+    }
+  } catch (err) {
+    console.error("⚠️ Fetch error:", err);
+    alert("⚠️ Không thể kết nối đến máy chủ thanh toán.");
+  }
+}
+</script>
+
+<script>
+// ========== So sánh: localStorage key ==========
+const CMP_KEY = 'compare_ids';
+const CMP_NAME_KEY = 'compare_names';
+
+// Load thanh so sánh khi vào trang
+document.addEventListener('DOMContentLoaded', renderCompareBar);
+
+function addToCompare(btn){
+	  const id = btn.getAttribute('data-id');
+	  const name = btn.getAttribute('data-name');
+
+	  let ids = JSON.parse(localStorage.getItem(CMP_KEY) || '[]');
+	  let names = JSON.parse(localStorage.getItem(CMP_NAME_KEY) || '[]');
+
+	  // chống trùng
+	  if (ids.includes(id)) {
+	    alert('Tòa này đã có trong danh sách so sánh.');
+	    return;
+	  }
+
+	  // giới hạn tối đa 4
+	  if (ids.length >= 4) {
+	    alert('Bạn chỉ có thể so sánh tối đa 4 tòa.');
+	    return;
+	  }
+
+	  ids.push(id);
+	  names.push(name);
+
+	  localStorage.setItem(CMP_KEY, JSON.stringify(ids));
+	  localStorage.setItem(CMP_NAME_KEY, JSON.stringify(names));
+	  renderCompareBar();
+}
+
+
+function clearCompare(){
+  localStorage.removeItem(CMP_KEY);
+  localStorage.removeItem(CMP_NAME_KEY);
+  renderCompareBar();
+}
+
+function renderCompareBar(){
+	  const bar = document.getElementById('compareBar');
+	  const list = document.getElementById('compareList');
+	  const open = document.getElementById('openCompare');
+
+	  // đọc localStorage
+	  let ids = JSON.parse(localStorage.getItem(CMP_KEY) || '[]');
+	  let names = JSON.parse(localStorage.getItem(CMP_NAME_KEY) || '[]');
+
+	  // đồng bộ độ dài (phòng lỗi cũ)
+	  if (names.length !== ids.length) {
+	    names = names.slice(0, ids.length);
+	    localStorage.setItem(CMP_NAME_KEY, JSON.stringify(names));
+	  }
+
+	  if (ids.length === 0){
+	    bar.classList.add('d-none');
+	    list.innerHTML = '';
+	    open.href = '/so-sanh';
+	    return;
+	  }
+
+	  // giới hạn hiện tối đa 4 (nếu có lỡ quá)
+	  if (ids.length > 4) {
+	    ids = ids.slice(0, 4);
+	    names = names.slice(0, 4);
+	    localStorage.setItem(CMP_KEY, JSON.stringify(ids));
+	    localStorage.setItem(CMP_NAME_KEY, JSON.stringify(names));
+	  }
+
+	  bar.classList.remove('d-none');
+	  list.innerHTML = names.map((n,i)=> `<span class="badge text-bg-light me-1">${i+1}. ${n}</span>`).join('');
+
+	  // build query ?ids=1&ids=2...
+	  const qs = ids.map(id => `ids=${encodeURIComponent(id)}`).join('&');
+	  open.href = `/so-sanh?${qs}`;
+}
+</script>
+
+<style>
+.compare-bar{
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: 20px; z-index: 1100; width: min(960px, 96%);
+  background: rgba(33,37,41,.95); color: #fff; border-radius: 10px;
+  padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 8px 22px rgba(0,0,0,.35);
+}
+</style>
+
+
+<!-- ✅ NÚT ZALO NỔI -->
+<a href="https://zalo.me/0896980501"
+   target="_blank"
+   id="zaloButton"
+   title="Liên hệ qua Zalo">
+  <img th:src="@{/images/zalo-icon.png}" alt="Zalo">
+</a>
+
+<style>
+#zaloButton {
+  position: fixed;
+  bottom: 80px;
+  right: 25px;
+  z-index: 1000;
+  background: white;
+  border: 2px solid #198754; /* Xanh lá SkyLand */
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  transition: transform 0.2s;
+}
+#zaloButton:hover {
+  transform: scale(1.1);
+}
+#zaloButton img {
+  width: 38px;
+  height: 38px;
+}
+/* ====== Card với hiệu ứng cao cấp và object-fit: contain ====== */
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  transition: transform .35s ease, box-shadow .35s ease;
+  background: #fff;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,.16);
+}
+
+/* Khung ảnh: ẩn phần ảnh thừa khi zoom */
+.card-img-wrap {
+  width: 100%;
+  height: 240px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  position: relative;
+}
+
+/* Ảnh hiển thị đầy đủ (contain) và phóng to mượt */
+.card-img-fit {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;          /* ✅ hiển thị toàn bộ ảnh */
+  object-position: center;
+  transition: transform .7s cubic-bezier(.25,.8,.25,1),
+              filter .5s ease;
+  will-change: transform, filter;
+  filter: brightness(.95);
+}
+
+/* Hover: phóng to vừa phải để vẫn giữ ảnh đầy đủ */
+.card:hover .card-img-fit {
+  transform: scale(1.15);       /* phóng to ~15% */
+  filter: brightness(1.05) saturate(1.08);
+}
+
+/* Hiệu ứng viền sáng khi hover */
+.card:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  box-shadow: 0 0 22px rgba(25, 135, 84, .25);
+  pointer-events: none;
+}
+
+/* Giảm chuyển động nếu người dùng bật tùy chọn */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card-img-fit { transition: none !important; }
+}
+
+
+</style>
+<!-- 🔁 Floating bar so sánh -->
+<div id="compareBar" class="compare-bar d-none">
+  <div>
+    <strong>So sánh:</strong>
+    <span id="compareList"></span>
+  </div>
+  <div class="d-flex gap-2">
+    <button class="btn btn-sm btn-outline-light" onclick="clearCompare()">Xoá</button>
+    <a id="openCompare" href="/so-sanh" class="btn btn-sm btn-warning">Mở trang so sánh</a>
+  </div>
+</div>
+
+</th:block>
+</body>
+</html>

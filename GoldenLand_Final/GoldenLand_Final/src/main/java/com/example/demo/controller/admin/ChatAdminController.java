@@ -1,4 +1,4 @@
-package com.example.demo.controller.web;
+package com.example.demo.controller.admin;
 
 import com.example.demo.service.ChatService;
 import org.springframework.web.bind.annotation.GetMapping;
